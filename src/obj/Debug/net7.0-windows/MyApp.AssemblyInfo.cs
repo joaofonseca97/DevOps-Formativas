@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LocationTimeTeller")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+548c98e5a06b5b7666cc0608f21c50577590d5eb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ca84fde6a12e1d80046aa5f83e2bfc11725b6242")]
 [assembly: System.Reflection.AssemblyProductAttribute("LocationTimeTeller")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LocationTimeTeller")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

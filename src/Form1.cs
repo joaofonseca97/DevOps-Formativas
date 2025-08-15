@@ -69,6 +69,7 @@ namespace LocationTeller
                 string cidade = json["city"]?.ToString() ?? "Desconhecida";
                 string pais = json["country"]?.ToString() ?? "Desconhecido";
                 string fuso = json["timezone"]?.ToString();
+                string status = json["status"]?.ToString();
 
                 TimeZoneInfo tz = null;
                 string horaLocalStr = "Hora local não disponível";
@@ -92,7 +93,8 @@ namespace LocationTeller
                     }
                 }
 
-                return $"Localização aproximada: {cidade}, {pais}\nFuso horário: {fuso ?? "Desconhecido"}\nHora local: {horaLocalStr}";
+                return $"Localização aproximada: {cidade}, {pais}\nFuso horário: {fuso ?? "Desconhecido"}\nHora local: {horaLocalStr}, \nStatus da consulta: {status}";
+
             }
         }
     }
