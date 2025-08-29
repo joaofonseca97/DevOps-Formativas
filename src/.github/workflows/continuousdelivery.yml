@@ -35,3 +35,13 @@ Deliver:
       - name: Run dotnet format
         run: echo "Running dotnet format to verify code style..."
         run: dotnet format --verify-no-changes
+
+Deploy:
+  runs-on: ubuntu-latest
+  needs: Deliver
+  steps:
+  - uses: actions/download-artifact@v5
+    with:
+      name: projetozipado.zip
+  - name: Display structure of downloaded files
+    run: ls -R
