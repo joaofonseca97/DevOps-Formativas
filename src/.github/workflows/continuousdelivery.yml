@@ -1,47 +1,45 @@
 name: Continuous Delivery
 
-on: [push]
-  branches:
-    - main # ou outra branch?
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-Deliver:
-  lint:
+  build-and-deliver:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        run: echo "Checking out code..."
         uses: actions/checkout@v3
 
-      - name: Setup .NET
-        run: echo "Setting up .NET environment..."
+      - name: Setup .NET 7
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: "8.0.x"
+          dotnet-version: '7.0.x'
 
-      - name: Simulação Continuous Delivery
-        run: echo "Simulating Continuous Delivery process..."
-      - uses: actions/upload-artifact@v4
+      - name: Restore dependencies
+        run: dotnet restore src/MyApp.csproj
+
+      - name: Build
+        run: dotnet build src/MyApp.csproj --configuration Release
+
+      - name: Test (if you have tests)
+        run: dotnet test src/MyApp.csproj --no-build --verbosity normal
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: my-artifact
-          path: |
-            path/output/bin/
-            path/output/test-results
-            !path/**/*.tmp
-      - name: Install dotnet-format
-        run: echo "Installing dotnet-format tool..."
-        run: dotnet tool install -g dotnet-format
+          name: app-build
+          path: src/bin/Release/
 
-      - name: Run dotnet format
-        run: echo "Running dotnet format to verify code style..."
-        run: dotnet format --verify-no-changes
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-deliver
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: app-build
 
-Deploy:
-  runs-on: ubuntu-latest
-  needs: Deliver
-  steps:
-  - uses: actions/download-artifact@v5
-    with:
-      name: projetozipado.zip
-  - name: Display structure of downloaded files
-    run: ls -R
+      - name: List downloaded files
+        run: ls -R
