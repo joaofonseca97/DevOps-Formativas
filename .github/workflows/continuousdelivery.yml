@@ -27,9 +27,11 @@ jobs:
         run: dotnet test src/MyApp.csproj --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
 
       - name: List test results
-        run: dir src\TestResults\
+        run: |
+          if (Test-Path "src\TestResults\") { dir src\TestResults\ } else { echo "No test results folder found." }
 
       - name: Upload test results
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-results
