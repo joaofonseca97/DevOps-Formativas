@@ -23,14 +23,20 @@ jobs:
       - name: Build
         run: dotnet build src/MyApp.csproj --configuration Release
 
-      - name: Test (if you have tests)
-        run: dotnet test src/MyApp.csproj --no-build --verbosity normal
+      - name: Test (with results file)
+        run: dotnet test src/MyApp.csproj --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-build
           path: src/bin/Release/
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: src/TestResults/
 
   deploy:
     runs-on: ubuntu-latest
@@ -40,6 +46,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: app-build
+
+      - name: Download test results
+        uses: actions/download-artifact@v4
+        with:
+          name: test-results
 
       - name: List downloaded files
         run: ls -R
