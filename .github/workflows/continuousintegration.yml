@@ -3,8 +3,8 @@ name: Lint C#
 on: [push, pull_request]
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
+  build-and-deliver:
+    runs-on: windows-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
