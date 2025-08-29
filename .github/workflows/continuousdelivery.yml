@@ -37,6 +37,12 @@ jobs:
           name: test-results
           path: src/TestResults/**/*.trx
 
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-build
+          path: src/bin/Release/
+
   deploy:
     runs-on: windows-latest
     needs: build-and-deliver
@@ -53,3 +59,6 @@ jobs:
 
       - name: List downloaded files
         run: ls -R
+
+      - name: List build output
+        run: dir src\bin\Release\
