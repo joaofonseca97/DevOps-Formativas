@@ -54,3 +54,6 @@ jobs:
 
       - name: List downloaded files
         run: ls -R
+
+      - name: List test results
+        run: dir src\TestResults\
