@@ -3,8 +3,8 @@ name: Lint C#
 on: [push, pull_request]
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
+  build-and-deliver:
+    runs-on: windows-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -17,5 +17,8 @@ jobs:
       - name: Install dotnet-format
         run: dotnet tool install -g dotnet-format
 
-      - name: Run dotnet format
-        run: dotnet format --verify-no-changes
+      - name: Restore dependencies
+        run: dotnet restore src/MyApp.csproj
+
+      - name: Check code formatting
+        run: dotnet format --verify-no-changes src/MyApp.csproj
