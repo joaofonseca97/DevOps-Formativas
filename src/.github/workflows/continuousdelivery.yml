@@ -1,0 +1,37 @@
+name: Continuous Delivery
+
+on: [push]
+  branches:
+    - main # ou outra branch?
+
+jobs:
+Deliver:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        run: echo "Checking out code..."
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        run: echo "Setting up .NET environment..."
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Simulação Continuous Delivery
+        run: echo "Simulating Continuous Delivery process..."
+      - uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact
+          path: |
+            path/output/bin/
+            path/output/test-results
+            !path/**/*.tmp
+      - name: Install dotnet-format
+        run: echo "Installing dotnet-format tool..."
+        run: dotnet tool install -g dotnet-format
+
+      - name: Run dotnet format
+        run: echo "Running dotnet format to verify code style..."
+        run: dotnet format --verify-no-changes
