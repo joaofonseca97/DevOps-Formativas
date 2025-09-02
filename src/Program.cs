@@ -7,12 +7,9 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-app.UseDefaultFiles(); // Serves index.html by default
-app.UseStaticFiles();  // Enables static file serving from wwwroot
-app.UseRouting();
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+app.MapControllers(); // Use top-level route registration
 
 app.Run();
