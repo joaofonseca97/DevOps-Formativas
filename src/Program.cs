@@ -1,16 +1,18 @@
-using System;
-using System.Windows.Forms;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
-namespace LocationTeller
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers();
+
+var app = builder.Build();
+
+app.UseDefaultFiles(); // Serves index.html by default
+app.UseStaticFiles();  // Enables static file serving from wwwroot
+app.UseRouting();
+app.UseEndpoints(endpoints =>
 {
-    static class Program
-    {
-        [STAThread]
-        static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
-        }
-    }
-}
+    endpoints.MapControllers();
+});
+
+app.Run();

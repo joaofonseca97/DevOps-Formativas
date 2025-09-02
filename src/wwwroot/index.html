@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Time and Location Teller</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        #result { margin-top: 20px; padding: 10px; border: 1px solid #ccc; background: #f9f9f9; }
+        button { padding: 10px 20px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <h1>Time and Location Teller</h1>
+    <button id="btnLocalizar">Localizar</button>
+    <div id="result">Clique em "Localizar" para obter informações.</div>
+    <script>
+        document.getElementById('btnLocalizar').onclick = async function() {
+            document.getElementById('result').textContent = 'Obtendo informações...';
+            try {
+                const response = await fetch('/api/location');
+                if (!response.ok) throw new Error('Erro na requisição');
+                const data = await response.json();
+                document.getElementById('result').innerHTML =
+                    `<strong>Localização aproximada:</strong> ${data.cidade}, ${data.pais}<br>` +
+                    `<strong>Fuso horário:</strong> ${data.fusoHorario}<br>` +
+                    `<strong>Hora local:</strong> ${data.horaLocal}<br>` +
+                    `<strong>Status da consulta:</strong> ${data.status}`;
+            } catch (err) {
+                document.getElementById('result').textContent = 'Erro: ' + err.message;
+            }
+        };
+    </script>
+</body>
+</html>
