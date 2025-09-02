@@ -28,7 +28,11 @@ jobs:
 
       - name: List test results
         run: |
-          if (Test-Path "src\TestResults\") { dir src\TestResults\ } else { echo "No test results folder found." }
+          if [ -d "src/TestResults/" ]; then
+            ls src/TestResults/
+          else
+            echo "No test results folder found."
+          fi
 
       - name: Upload test results
         if: always()
