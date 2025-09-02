@@ -1,15 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "E6zeq/5R3e8=",
+  "dgSpecHash": "32Df0b1AUok=",
   "success": true,
-  "projectFilePath": "C:\\Users\\JoaoF\\OneDrive\\Área de Trabalho\\ADS\\7 Modulo\\DevOps\\DevOps-Formativas\\Location-Timer-Teller\\src\\MyApp.csproj",
+  "projectFilePath": "C:\\Users\\JoaoF\\OneDrive\\Área de Trabalho\\ADS\\7 Modulo\\DevOps\\Semana4\\ProjetoSemana4\\TimeTeller\\src\\WebApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\JoaoF\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
-    "C:\\Users\\JoaoF\\.nuget\\packages\\timezoneconverter\\7.0.0\\timezoneconverter.7.0.0.nupkg.sha512",
-    "C:\\Users\\JoaoF\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.20\\microsoft.netcore.app.ref.7.0.20.nupkg.sha512",
-    "C:\\Users\\JoaoF\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.20\\microsoft.windowsdesktop.app.ref.7.0.20.nupkg.sha512",
-    "C:\\Users\\JoaoF\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.20\\microsoft.aspnetcore.app.ref.7.0.20.nupkg.sha512",
-    "C:\\Users\\JoaoF\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.20\\microsoft.netcore.app.host.win-x64.7.0.20.nupkg.sha512"
+    "C:\\Users\\JoaoF\\.nuget\\packages\\timezoneconverter\\7.0.0\\timezoneconverter.7.0.0.nupkg.sha512"
   ],
   "logs": []
 }
