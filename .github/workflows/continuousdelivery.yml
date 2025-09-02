@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deliver:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -44,7 +44,7 @@ jobs:
           path: src/bin/Release/
 
   deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     needs: build-and-deliver
     steps:
       - name: Download build artifact
