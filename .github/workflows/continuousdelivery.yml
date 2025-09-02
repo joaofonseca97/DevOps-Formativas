@@ -12,19 +12,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup .NET 7
+      - name: Setup .NET 8
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: "7.0.x"
+          dotnet-version: "8.0.x"
 
       - name: Restore dependencies
-        run: dotnet restore src/MyApp.csproj
+        run: dotnet restore src/WebApi.csproj
 
       - name: Build
-        run: dotnet build src/MyApp.csproj --configuration Release
+        run: dotnet build src/WebApi.csproj --configuration Release
 
       - name: Test (with results file)
-        run: dotnet test src/MyApp.csproj --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
+        run: dotnet test src/WebApi.csproj --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
 
       - name: List test results
         run: |
