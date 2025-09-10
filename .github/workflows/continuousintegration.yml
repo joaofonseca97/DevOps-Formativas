@@ -1,4 +1,4 @@
-name: Lint C#
+name: Lint C# + Docker + Discord Webhook
 
 on: [push, pull_request]
 
