@@ -96,11 +96,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\JoaoF\\OneDrive\\Área de Trabalho\\ADS\\7 Modulo\\DevOps\\Semana4\\ProjetoSemana4\\TimeTeller\\src\\WebApi.csproj",
+      "projectUniqueName": "C:\\Users\\JoaoF\\OneDrive\\Área de Trabalho\\ADS\\7 Modulo\\DevOps\\Semana6\\DevOps-Formativas\\src\\WebApi.csproj",
       "projectName": "WebApi",
-      "projectPath": "C:\\Users\\JoaoF\\OneDrive\\Área de Trabalho\\ADS\\7 Modulo\\DevOps\\Semana4\\ProjetoSemana4\\TimeTeller\\src\\WebApi.csproj",
+      "projectPath": "C:\\Users\\JoaoF\\OneDrive\\Área de Trabalho\\ADS\\7 Modulo\\DevOps\\Semana6\\DevOps-Formativas\\src\\WebApi.csproj",
       "packagesPath": "C:\\Users\\JoaoF\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\JoaoF\\OneDrive\\Área de Trabalho\\ADS\\7 Modulo\\DevOps\\Semana4\\ProjetoSemana4\\TimeTeller\\src\\obj\\",
+      "outputPath": "C:\\Users\\JoaoF\\OneDrive\\Área de Trabalho\\ADS\\7 Modulo\\DevOps\\Semana6\\DevOps-Formativas\\src\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\JoaoF\\AppData\\Roaming\\NuGet\\NuGet.Config",
