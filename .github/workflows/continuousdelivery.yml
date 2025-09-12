@@ -12,27 +12,18 @@ jobs:
       checks: write
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "8.0.x"
 
-      - name: Restore solution
+      - name: Restore
         run: dotnet restore DevOps-Formativas.sln
-
-      - name: Restore tests project
-        run: dotnet restore WebApi.Tests/WebApi.Tests.csproj
 
       - name: Build (Release)
         run: dotnet build DevOps-Formativas.sln --configuration Release --no-restore
 
-      - name: Run tests (emit TRX to TestResults)
-        run: |
-          mkdir -p TestResults
-          dotnet test WebApi.Tests/WebApi.Tests.csproj \
-            --configuration Release --no-build \
-            --logger "trx;LogFileName=WebApi.Tests.trx" \
-            --results-directory TestResults
+      - name: Run tests (emit TRX)
+        run: dotnet test DevOps-Formativas.sln --configuration Release --no-build --logger "trx;LogFileName=tests.trx" --results-directory TestResults
 
       - name: List TRX files (debug)
         if: always()
