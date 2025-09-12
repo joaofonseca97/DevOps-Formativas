@@ -17,19 +17,25 @@ jobs:
         with:
           dotnet-version: "8.0.x"
 
-      - name: Restore dependencies
+      - name: Restore dependencies (app)
         run: dotnet restore src/WebApi.csproj
 
-      - name: Build
+      - name: Restore dependencies (tests)
+        run: dotnet restore tests/WebApi.Tests/WebApi.Tests.csproj
+
+      - name: Build app
         run: dotnet build src/WebApi.csproj --configuration Release
 
+      - name: Build tests
+        run: dotnet build tests/WebApi.Tests/WebApi.Tests.csproj --configuration Release
+
       - name: Test (with results file)
-        run: dotnet test src/WebApi.csproj --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
+        run: dotnet test tests/WebApi.Tests/WebApi.Tests.csproj --no-build --configuration Release --logger "trx;LogFileName=test-results.trx" --results-directory tests/TestResults
 
       - name: List test results
         run: |
-          if [ -d "src/TestResults/" ]; then
-            ls src/TestResults/
+          if [ -d "tests/TestResults/" ]; then
+            ls tests/TestResults/
           else
             echo "No test results folder found."
           fi
@@ -38,8 +44,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: test-results
-          path: src/TestResults/**/*.trx
+          name: cd-test-results
+          path: tests/TestResults/**/*.trx
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
