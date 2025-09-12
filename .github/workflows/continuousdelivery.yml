@@ -2,7 +2,7 @@ name: CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build-test:
@@ -14,23 +14,28 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: "8.0.x"
       - run: dotnet restore DevOps-Formativas.sln
       - run: dotnet build DevOps-Formativas.sln --configuration Release --no-restore
-      - run: dotnet test DevOps-Formativas.sln --configuration Release --no-build --logger "trx;LogFileName=test-results.trx" --results-directory TestResults
+      - name: Run tests (emit TRX)
+        run: dotnet test WebApi.Tests/WebApi.Tests.csproj --configuration Release --no-build --logger "trx;LogFileName=WebApi.Tests.trx" --results-directory WebApi.Tests/TestResults
+      - name: List results (debug)
+        if: always()
+        run: ls -R WebApi.Tests/TestResults || true
       - name: Publish test report (Checks)
         if: always()
         uses: dorny/test-reporter@v1
         with:
           name: Tests (Release)
-          path: TestResults/**/*.trx
+          path: WebApi.Tests/TestResults/**/*.trx
           reporter: dotnet-trx
           fail-on-error: false
-      - if: always()
+      - name: Upload TRX artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: cd-test-results
-          path: TestResults/**/*.trx
+          path: WebApi.Tests/TestResults/**/*.trx
       - uses: actions/upload-artifact@v4
         with:
           name: app-build
