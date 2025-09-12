@@ -5,6 +5,9 @@ on: [push, pull_request]
 jobs:
   build-test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
@@ -13,6 +16,14 @@ jobs:
       - run: dotnet restore DevOps-Formativas.sln
       - run: dotnet build DevOps-Formativas.sln --configuration Debug --no-restore
       - run: dotnet test DevOps-Formativas.sln --configuration Debug --no-build --logger "trx;LogFileName=test-results.trx" --results-directory TestResults
+      - name: Publish test report (Checks)
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: Tests (Debug)
+          path: TestResults/**/*.trx
+          reporter: dotnet-trx
+          fail-on-error: false
       - if: always()
         uses: actions/upload-artifact@v4
         with:
