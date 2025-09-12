@@ -30,12 +30,12 @@ jobs:
         run: dotnet build tests/WebApi.Tests/WebApi.Tests.csproj --configuration Release
 
       - name: Test (with results file)
-        run: dotnet test tests/WebApi.Tests/WebApi.Tests.csproj --no-build --configuration Release --logger "trx;LogFileName=test-results.trx" --results-directory tests/TestResults
+        run: dotnet test tests/WebApi.Tests/WebApi.Tests.csproj --no-build --configuration Release --logger "trx;LogFileName=test-results.trx" --results-directory tests/WebApi.Tests/TestResults
 
       - name: List test results
         run: |
-          if [ -d "tests/TestResults/" ]; then
-            ls tests/TestResults/
+          if [ -d "tests/WebApi.Tests/TestResults/" ]; then
+            ls tests/WebApi.Tests/TestResults/
           else
             echo "No test results folder found."
           fi
@@ -45,7 +45,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cd-test-results
-          path: tests/TestResults/**/*.trx
+          path: tests/WebApi.Tests/TestResults/**/*.trx
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
