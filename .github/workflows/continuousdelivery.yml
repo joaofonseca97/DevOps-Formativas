@@ -16,14 +16,19 @@ jobs:
         with:
           dotnet-version: "8.0.x"
 
-      - name: Restore
-        run: dotnet restore DevOps-Formativas.sln
+      - name: Restore (app)
+        run: dotnet restore src/WebApi.csproj
+
+      - name: Restore (tests)
+        run: dotnet restore WebApi.Tests/WebApi.Tests.csproj
 
       - name: Build (Release)
-        run: dotnet build DevOps-Formativas.sln --configuration Release --no-restore
+        run: |
+          dotnet build src/WebApi.csproj --configuration Release --no-restore
+          dotnet build WebApi.Tests/WebApi.Tests.csproj --configuration Release --no-restore
 
       - name: Run tests (emit TRX)
-        run: dotnet test DevOps-Formativas.sln --configuration Release --no-build --logger "trx;LogFileName=tests.trx" --results-directory TestResults
+        run: dotnet test WebApi.Tests/WebApi.Tests.csproj --configuration Release --no-build --logger "trx;LogFileName=WebApi.Tests.trx" --results-directory TestResults
 
       - name: List TRX files (debug)
         if: always()

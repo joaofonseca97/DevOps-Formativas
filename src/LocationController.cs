@@ -7,7 +7,13 @@ namespace WebApi
     [Route("api/[controller]")]
     public class LocationController : ControllerBase
     {
-        private readonly LocationService _service = new LocationService();
+        private readonly LocationService _service;
+
+        // O serviço agora é injetado pelo construtor
+        public LocationController(LocationService service)
+        {
+            _service = service;
+        }
 
         [HttpGet]
         public async Task<IActionResult> Get()
