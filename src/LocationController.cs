@@ -9,7 +9,7 @@ namespace WebApi
     {
         private readonly LocationService _service;
 
-        // O serviço agora é injetado pelo construtor
+        // MODIFIQUE O CONTROLLER PARA RECEBER O SERVIÇO VIA CONSTRUTOR
         public LocationController(LocationService service)
         {
             _service = service;

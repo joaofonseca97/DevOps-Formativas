@@ -8,50 +8,56 @@ namespace WebApi
 {
     public class LocationService
     {
+        private readonly HttpClient _client;
+
+        // ESTE É O CONSTRUTOR QUE ESTAVA FALTANDO. ADICIONE-O.
+        public LocationService(HttpClient client)
+        {
+            _client = client;
+        }
+
         public async Task<LocationResult> GetLocationAsync()
         {
-            using (HttpClient client = new HttpClient())
+            string url = "http://ip-api.com/json";
+            // MODIFIQUE A LINHA ABAIXO PARA USAR O _client
+            var response = await _client.GetStringAsync(url);
+            var json = JObject.Parse(response);
+
+            string cidade = json["city"]?.ToString() ?? "Desconhecida";
+            string pais = json["country"]?.ToString() ?? "Desconhecido";
+            string fuso = json["timezone"]?.ToString();
+            string status = json["status"]?.ToString();
+
+            TimeZoneInfo tz = null;
+            string horaLocalStr = "Hora local não disponível";
+
+            if (!string.IsNullOrEmpty(fuso))
             {
-                string url = "http://ip-api.com/json";
-                var response = await client.GetStringAsync(url);
-                var json = JObject.Parse(response);
-
-                string cidade = json["city"]?.ToString() ?? "Desconhecida";
-                string pais = json["country"]?.ToString() ?? "Desconhecido";
-                string fuso = json["timezone"]?.ToString();
-                string status = json["status"]?.ToString();
-
-                TimeZoneInfo tz = null;
-                string horaLocalStr = "Hora local não disponível";
-
-                if (!string.IsNullOrEmpty(fuso))
+                try
                 {
-                    try
-                    {
-                        tz = TZConvert.GetTimeZoneInfo(fuso);
-                    }
-                    catch
-                    {
-                        try { tz = TimeZoneInfo.FindSystemTimeZoneById(fuso); }
-                        catch { tz = null; }
-                    }
-
-                    if (tz != null)
-                    {
-                        DateTime horaLocal = TimeZoneInfo.ConvertTime(DateTime.UtcNow, tz);
-                        horaLocalStr = horaLocal.ToString("HH:mm:ss");
-                    }
+                    tz = TZConvert.GetTimeZoneInfo(fuso);
+                }
+                catch
+                {
+                    try { tz = TimeZoneInfo.FindSystemTimeZoneById(fuso); }
+                    catch { tz = null; }
                 }
 
-                return new LocationResult
+                if (tz != null)
                 {
-                    Cidade = cidade,
-                    Pais = pais,
-                    FusoHorario = fuso ?? "Desconhecido",
-                    HoraLocal = horaLocalStr,
-                    Status = status
-                };
+                    DateTime horaLocal = TimeZoneInfo.ConvertTime(DateTime.UtcNow, tz);
+                    horaLocalStr = horaLocal.ToString("HH:mm:ss");
+                }
             }
+
+            return new LocationResult
+            {
+                Cidade = cidade,
+                Pais = pais,
+                FusoHorario = fuso ?? "Desconhecido",
+                HoraLocal = horaLocalStr,
+                Status = status
+            };
         }
     }
 
